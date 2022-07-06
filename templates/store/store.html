@@ -33,7 +33,7 @@
                      <li><a href="{%url 'store'%}">All product
                      {%for category in links%}</a></li>
                   <li><a href="{{category.get_url}}">{{category.category_name}}  </a></li>
-                  {%endfor%%}
+                  {% endfor %}
                  
                   </ul>
       
@@ -127,13 +127,13 @@
       </header><!-- sect-heading -->
       
       <div class="row">
-         {% product in products%}
+         {% for product in products %}
          <div class="col-md-4">
             <figure class="card card-product-grid">
                <div class="img-wrap"> 
                   
-                 <a href ="{product.get_url}}"><img src="{{product.images.url}}
-                  "></a>
+                
+            <a href="{{product.get_url}}"><img src="{{product.images.url}}"></a>
                  
                   
                </div> <!-- img-wrap.// -->
@@ -148,7 +148,7 @@
                </figcaption>
             </figure>
          </div> <!-- col.// -->
-         {%endfor%}
+         {% endfor %}
       </div> <!-- row end.// -->
       
       
