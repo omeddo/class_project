@@ -75,3 +75,6 @@ def logout(request):
    auth.logout(request)
    message.success(request,'you are logged out')
    return redirect('login')
+
+def activate(request):
+   return
