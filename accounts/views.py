@@ -4,6 +4,7 @@ from accounts.models import Account
 from .forms import RegistrationForm
 from django.contrib import auth,messages
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 
 # verification
 from django.contrib.sites.shortcuts import get_current_site
@@ -37,7 +38,7 @@ def register(request):
             'user':user,
             'domain':current_site,
             'uid':urlsafe_base64_encode(force_bytes(user.pk)),
-            'token':default_token_generator.make_token(user)
+            'token':default_token_generator.make_token(user),
          })
          to_email=email
          send_email=EmailMessage(mail_subject,message,to=[to_email])

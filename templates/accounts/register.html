@@ -9,7 +9,7 @@
          <article class="card-body">
              {% include 'includes/alerts.html' %}
          <header class="mb-4"><h4 class="card-title">Sign up</h4></header>
-         <form action="(% url 'register'%)" method="POST">
+         <form action="{% url 'register' %}" method="POST">
             {% csrf_token %}
 
             {{form.as.p}}
@@ -30,20 +30,11 @@
                </div> <!-- form-group end.// -->
                <div class="form-row">
                   <div class="form-group col-md-6">
-                    <label>Phone Number</label>
-                    {{form.phone_number}}
+                    
 
                   </div> <!-- form-group end.// -->
                   <div class="form-group col-md-6">
-                    <label>Country</label>
-                    <select id="inputState" class="form-control">
-                      <option> Choose...</option>
-                        <option>Uzbekistan</option>
-                        <option>Russia</option>
-                        <option selected="">United States</option>
-                        <option>India</option>
-                        <option>Afganistan</option>
-                    </select>
+                    
                   </div> <!-- form-group end.// -->
                </div> <!-- form-row.// -->
                <div class="form-row">
