@@ -20,7 +20,7 @@
          {% include 'includes/alerts.html' %}
 
          <h4 class="card-title mb-4">Sign in</h4>
-         <form action="{% url 'home'%}">
+         <form action="{% url 'login'%}" method="POST">
             {% csrf_token %}
              <div class="form-group">
              <input type="email" class="form-control" placeholder="Email Address" name="email" >
