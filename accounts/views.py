@@ -60,12 +60,12 @@ def login(request):
       
       user = auth.authenticate(email=email,password=password)
       
-      if user is not None:
+      if user:
          auth.login(request,user)
-         message.success(request,'you are logged in')
+         messages.success(request,'you are logged in')
          return redirect('dashboard')
       else:
-         message.error(request,'Invalid login credentials')
+         messages.error(request,'Invalid login credentials')
          return redirect('login')
          
    return render(request, 'accounts/login.html')
@@ -87,11 +87,11 @@ def activate(request , uidb64 , token):
       if user is not None and default_token_generator.check_token(user,token):
          user.is_active = True
          user.save()
-         message.success(request,'Congratulations! Your account is activated.')
+         messages.success(request,'Congratulations! Your account is activated.')
       
          return redirect('login')
       else:
-         message.error(request,'Invalid activation link')
+         messages.error(request,'Invalid activation link')
          return redirect('register')
       
 @login_required(login_url ='login')
@@ -103,7 +103,7 @@ def forgotPassword(request):
    if request.method=='POST':
       email=request.POST['email']
       if Account.object.filter(email=email).exists():
-         user=Account.object.get(email_exact=email)
+         user=Account.object.get(email__exact=email)
          # RESET PASSWORD EMAIL
          current_site = get_current_site(request)
          mail_subject= 'Reset your password'
@@ -121,7 +121,7 @@ def forgotPassword(request):
          return redirect('login')
          
       else:
-         message.error(request,'Account does not exists!')
+         messages.error(request,'Account does not exists!')
          return redirect('forgotPassword')
    return render(request, 'accounts/forgotPassword.html')
 
@@ -134,10 +134,10 @@ def resetpassword_validate(request , uidb64 , token):
          
          if user is not None and default_token_generator.check_token(user,token):
             request.session['uid']=uid
-            message.success(request, 'Please rest your password')
+            messages.success(request, 'Please rest your password')
             return redirect('resetPassword')
          else:
-            message.error(request,'This link has  expired')
+            messages.error(request,'This link has  expired')
             return redirect('login')
          
 def resetPassword(request):
@@ -149,10 +149,13 @@ def resetPassword(request):
          user = Account.object.get(pk=uid)
          user.set_password(password)
          user.save()
-         message.success(request, 'Password reset successful')
+         messages.success(request, 'Password reset successful')
          return redirect('login')
       else:
-         message.error(request,'Password do not match!')
+         messages.error(request,'Password do not match!')
          return redirect('resetPassword')
    else:
       return render(request,'accounts/resetPassword.html')
+   
+def dashboard(request):
+   return render(request, 'accounts/dashboard.html')
